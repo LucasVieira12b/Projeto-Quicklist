@@ -23,16 +23,18 @@ function showItemsList() {
         sectionList.innerHTML += `
             <div class="item">
                 <div>
-                    <input type="checkbox" name="list" id="item-${index}">
+                    <input type="checkbox" name="list" id="item-${index}" 
+                    ${item.checked ? "checked" : ""} 
+                    onclick="checkItem(${index})">
 
-                    <div class="custom-checkbox">
+                    <div class="custom-checkbox" onclick="checkItem('${item.name}')">
                         <img src="./assets/checked.svg" alt="checked">
                     </div>
 
-                    <label for="item-${index}">${item.name}</label>
+                    <label for="item-${index}" onclick="checkItem('${item.name}')">${item.name}</label>
                 </div>
 
-                <button onclick="removeItem('${item.name}')">
+                <button onclick="removeItem(${index})">
                     <img src="./assets/trash-icon.svg" alt="trash icon">
                 </button>
             </div>        
@@ -40,18 +42,17 @@ function showItemsList() {
     })
 }
 
-function removeItem(itemName) {
-    const itemIndex = items.findIndex((item) => item.name === itemName)
+function removeItem(index) {
     const divWarning = document.querySelector(".warning")
 
-    divWarning.classList.remove("hide-warning")
+    if (index !== -1) {
+        items.splice(index, 1)
 
-    setTimeout(() => {
-        divWarning.classList.add("hide-warning")
-    }, 4000)
+        divWarning.classList.remove("hide-warning")
 
-    if (itemIndex !== -1) {
-        items.splice(itemIndex, 1)
+        setTimeout(() => {
+            divWarning.classList.add("hide-warning")
+        }, 4000)
     }
 
     showItemsList()
@@ -59,4 +60,10 @@ function removeItem(itemName) {
 
 function addHideWarningClass() {
     document.querySelector(".warning").classList.add("hide-warning")
+}
+
+function checkItem(itemName) {
+    const item = items.find((item) => item.name === itemName)
+    item.checked = !item.checked
+    showItemsList()
 }
