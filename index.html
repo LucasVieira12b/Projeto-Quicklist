@@ -17,6 +17,7 @@
       href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
     />
     <link rel="stylesheet" href="style.css">
+    <script src="./main.js" defer></script>
     <title>QuickList</title>
 </head>
 <body>
@@ -34,7 +35,7 @@
     <main>
         <section class="add-item">
             <input type="text" placeholder="Adicione um novo item" id="item">
-            <button>Adicionar item</button>
+            <button onclick="AddItem()">Adicionar item</button>
         </section>
 
         <section class="list">
